@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClaptonStore.Data\ClaptonStore.Data.csproj" />
+    <ProjectReference Include="..\ClaptonStore.Utilities\ClaptonStore.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

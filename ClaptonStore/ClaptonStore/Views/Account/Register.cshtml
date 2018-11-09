@@ -1,0 +1,39 @@
+﻿@using ClaptonStore.Models.BindingModels
+@model RegisterBindingModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <fieldset>
+        <div class="form-group">
+            <label asp-for="@Model.Username"></label>
+            <input type="text" asp-for="@Model.Username" class="form-control" placeholder="Enter username">
+            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Password"></label>
+            <input type="password" asp-for="@Model.Password" class="form-control" placeholder="Enter password">
+            <span asp-validation-for="@Model.Password" class="invalid-feedback"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.ConfirmPassword"></label>
+            <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="Confirm password">
+            <span asp-validation-for="@Model.ConfirmPassword" class="invalid-feedback"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Email"></label>
+            <input type="text" asp-for="@Model.Email" class="form-control" placeholder="Enter email">
+            <span asp-validation-for="@Model.Email" class="invalid-feedback"></span>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <button type="submit" class="btn btn-success">Register</button>
+        <a asp-page="/Index" class="btn btn-outline-primary">Cancel</a>
+    </fieldset>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
