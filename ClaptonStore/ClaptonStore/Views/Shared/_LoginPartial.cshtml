@@ -8,6 +8,15 @@
     <li class="nav-item active">
         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
     </li>
+    <li class="nav-item">
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+            <ul class="nav navbar-nav">
+                <li>
+                    <button type="submit" class="btn btn-link" style="color: white">Log out</button>
+                </li>
+            </ul>
+        </form>
+    </li>
 }
 else
 {

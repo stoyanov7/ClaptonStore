@@ -11,6 +11,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Models.Identity;
+    using Services;
+    using Services.Contracts;
 
     public class Startup
     {
@@ -48,6 +50,9 @@
             })
             .AddEntityFrameworkStores<ClaptonStoreContext>()
             .AddDefaultTokenProviders();
+
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
