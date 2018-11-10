@@ -1,4 +1,4 @@
-namespace ClaptonStore.Models
+namespace ClaptonStore.Models.ViewModels
 {
     public class ErrorViewModel
     {
