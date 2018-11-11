@@ -7,5 +7,7 @@
         public const string UnexpectedError = "Unexpected error occurred setting {0} for user with ID '{1}'.";
 
         public const string UpdateProfile = "Your profile has been updated";
+
+        public const string VeritificationEmailSent = "Verification email sent. Please check your email.";
     }
 }
