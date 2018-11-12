@@ -41,6 +41,11 @@
             builder.ApplyConfiguration(new BookOrderConfiguration());
             builder.ApplyConfiguration(new MovieOrderConfiguration());
 
+            builder.Entity<Game>()
+                .HasOne(a => a.Developer)
+                .WithMany(b => b.Games)
+                .HasForeignKey(a => a.DeveloperId);
+
             base.OnModelCreating(builder);
         }
     }

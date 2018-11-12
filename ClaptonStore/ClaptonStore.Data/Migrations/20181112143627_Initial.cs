@@ -1,9 +1,9 @@
-﻿namespace ClaptonStore.Data.Migrations
-{
-    using System;
-    using Microsoft.EntityFrameworkCore.Metadata;
-    using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
+namespace ClaptonStore.Data.Migrations
+{
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -230,7 +230,7 @@
                     Description = table.Column<string>(nullable: false),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
                     GameGenreType = table.Column<int>(nullable: false),
-                    DeveloperId = table.Column<int>(nullable: true)
+                    DeveloperId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,7 +240,7 @@
                         column: x => x.DeveloperId,
                         principalTable: "Developers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

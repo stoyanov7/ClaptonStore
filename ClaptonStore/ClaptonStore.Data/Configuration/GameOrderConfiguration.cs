@@ -9,7 +9,7 @@
         public void Configure(EntityTypeBuilder<GameOrder> builder)
         {
             builder
-                .HasKey(go => new { go.UserId, go.GameId });
+                .HasKey(go => new { go.UserId, go.GameId, });
 
             builder
                 .HasOne(u => u.User)

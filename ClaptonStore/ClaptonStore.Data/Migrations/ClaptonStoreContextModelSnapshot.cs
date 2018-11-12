@@ -116,7 +116,7 @@ namespace ClaptonStore.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<int?>("DeveloperId");
+                    b.Property<int>("DeveloperId");
 
                     b.Property<int>("GameGenreType");
 
@@ -381,9 +381,10 @@ namespace ClaptonStore.Data.Migrations
 
             modelBuilder.Entity("ClaptonStore.Models.Game", b =>
                 {
-                    b.HasOne("ClaptonStore.Models.Developer")
+                    b.HasOne("ClaptonStore.Models.Developer", "Developer")
                         .WithMany("Games")
-                        .HasForeignKey("DeveloperId");
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ClaptonStore.Models.GameOrder", b =>

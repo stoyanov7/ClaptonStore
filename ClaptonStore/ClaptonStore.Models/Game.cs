@@ -34,6 +34,9 @@
 
         public GameGenreType GameGenreType { get; set; }
 
+        public int DeveloperId { get; set; }
+        public Developer Developer { get; set; }
+
         public ICollection<GameOrder> GameOrders { get; set; } = new HashSet<GameOrder>();
     }
 }

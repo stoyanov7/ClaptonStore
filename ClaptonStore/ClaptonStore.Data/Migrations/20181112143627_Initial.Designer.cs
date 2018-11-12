@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClaptonStore.Data.Migrations
 {
     [DbContext(typeof(ClaptonStoreContext))]
-    [Migration("20181108113811_Initial")]
+    [Migration("20181112143627_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace ClaptonStore.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<int?>("DeveloperId");
+                    b.Property<int>("DeveloperId");
 
                     b.Property<int>("GameGenreType");
 
@@ -383,9 +383,10 @@ namespace ClaptonStore.Data.Migrations
 
             modelBuilder.Entity("ClaptonStore.Models.Game", b =>
                 {
-                    b.HasOne("ClaptonStore.Models.Developer")
+                    b.HasOne("ClaptonStore.Models.Developer", "Developer")
                         .WithMany("Games")
-                        .HasForeignKey("DeveloperId");
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ClaptonStore.Models.GameOrder", b =>
