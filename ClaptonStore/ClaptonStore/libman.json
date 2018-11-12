@@ -7,7 +7,8 @@
       "destination": "wwwroot/lib/bootstrap",
       "files": [
         "js/bootstrap.min.js",
-        "css/bootstrap.min.css"
+        "css/bootstrap.min.css",
+        "css/bootstrap.min.css.map"
       ]
     },
     {
@@ -35,6 +36,24 @@
         "fonts/fontawesome-webfont.woff",
         "fonts/fontawesome-webfont.woff2",
         "fonts/FontAwesome.otf"
+      ]
+    },
+    {
+      "library": "jquery-validate@1.18.0",
+      "destination": "wwwroot/lib/jquery-validation/dist",
+      "files": [
+        "additional-methods.min.js",
+        "jquery.validate.js",
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive",
+      "files": [
+        "jquery.validate.unobtrusive.js",
+        "jquery.validate.unobtrusive.min.js"
       ]
     }
   ]
