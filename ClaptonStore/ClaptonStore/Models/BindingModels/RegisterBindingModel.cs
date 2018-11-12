@@ -6,7 +6,7 @@
     public class RegisterBindingModel
     {
         [Required]
-        [MinLength(3)]
+        [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Username")]
         public string Username { get; set; }
 
@@ -22,10 +22,11 @@
         [Required]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = PasswordUtility.ConfirmationMessage)]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

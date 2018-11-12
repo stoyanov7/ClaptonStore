@@ -1,0 +1,62 @@
+﻿@using ClaptonStore.Models.Enum
+@model ClaptonStore.Models.BindingModels.AddGameBindingModel
+@{
+    ViewData["Title"] = "Add Game";
+}
+
+<h1 style="text-align: center">@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-6" style="margin: 0 auto">
+        <form asp-controller="Game" asp-action="Add" method="post">
+            <fieldset>
+                <div class="form-group row">
+                    <label asp-for="Title"></label>
+                    <input type="text" asp-for="Title" class="form-control" placeholder="Enter Game Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ThumbnailUrl"></label>
+                    <input type="url" asp-for="ThumbnailUrl" class="form-control" placeholder="Enter URL to Image" />
+                    <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Price">Price</label>
+                    <div class="input-group">
+                        <input type="number" asp-for="Price" class="form-control" placeholder="Enter Price" />
+                        <span class="input-group-text">&euro;</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Size"></label>
+                    <div class="input-group">
+                        <input type="number" asp-for="Size" class="form-control" placeholder="Enter Size" />
+                        <span class="input-group-text">GB</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ReleaseDate"></label>
+                    <input type="date" asp-for="ReleaseDate" class="form-control" />
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Developer"></label>
+                    <input type="text" asp-for="Developer" class="form-control" placeholder="Enter Developer" />
+                    <span asp-validation-for="Developer" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <select asp-for="GameType"
+                            asp-items="Html.GetEnumSelectList<GameGenreType>()"
+                            class="custom-select">
+                        <option>Choose Genre</option>
+                    </select> </div>
+                <hr/>
+                <input type="submit" class="btn btn-outline-success btn-lg btn-block"
+                       value="Add Game" />
+            </fieldset>
+        </form>
+    </div>
+</div>
