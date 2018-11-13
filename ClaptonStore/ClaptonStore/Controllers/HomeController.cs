@@ -1,12 +1,23 @@
 ﻿namespace ClaptonStore.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using Services.Contracts;
 
     public class HomeController : Controller
     {
-        public IActionResult Index() => this.View();
+        private readonly IGameService gameService;
+
+        public HomeController(IGameService gameService) => this.gameService = gameService;
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await this.gameService.ListAllGamesAsync();
+
+            return this.View(model);
+        }
 
         public IActionResult About()
         {

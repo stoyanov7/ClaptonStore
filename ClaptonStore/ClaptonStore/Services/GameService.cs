@@ -1,9 +1,8 @@
 ﻿namespace ClaptonStore.Services
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
     using Contracts;
     using Data;
@@ -16,10 +15,7 @@
     {
         private readonly ClaptonStoreContext context;
 
-        public GameService(ClaptonStoreContext context)
-        {
-            this.context = context;
-        }
+        public GameService(ClaptonStoreContext context) => this.context = context;
 
         public async Task<Game> CreateGameAsync(
             string title,
@@ -84,6 +80,23 @@
                 ReleaseDate = gameDb.ReleaseDate,
                 Genre = gameDb.GameGenreType.GetDisplayName()
             };
+        }
+
+        public async Task<IList<AllGamesViewModel>> ListAllGamesAsync()
+        {
+            return await this.context
+                .Games
+                .AsNoTracking()
+                .Select(g => new AllGamesViewModel
+                {
+                    Id = g.Id,
+                    Title = g.Title,
+                    Thumbnail = g.ThumbnailUrl,
+                    Price = g.Price,
+                    Size = g.Size,
+                    Description = g.Description
+                })
+                .ToListAsync();
         }
     }
 }
