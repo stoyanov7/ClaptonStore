@@ -1,7 +1,9 @@
 ﻿namespace ClaptonStore.Services
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
     using Contracts;
     using Data;
@@ -79,7 +81,8 @@
                 Price = gameDb.Price,
                 Size = gameDb.Size,
                 ThumbnailUrl = gameDb.ThumbnailUrl,
-                ReleaseDate = gameDb.ReleaseDate
+                ReleaseDate = gameDb.ReleaseDate,
+                Genre = gameDb.GameGenreType.GetDisplayName()
             };
         }
     }
