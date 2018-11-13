@@ -3,16 +3,19 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Models.BindingModels;
     using Services.Contracts;
 
     public class GameController : Controller
     {
         private readonly IGameService gameService;
+        private readonly ILogger logger;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, ILogger<GameController> logger)
         {
             this.gameService = gameService;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -25,6 +28,7 @@
         {
             if (!this.ModelState.IsValid)
             {
+                this.logger.LogError($"Invalid {nameof(AddGameBindingModel)}!");
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -32,6 +36,7 @@
 
             if (gameExists)
             {
+                this.logger.LogError($"{model.Title} exist!");
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -44,6 +49,8 @@
                 model.ReleaseDate,
                 model.GameType,
                 model.Developer);
+
+            this.logger.LogInformation("Admin add a new game!");
 
             return this.RedirectToAction("Details", new { id = game.Id });
         }
