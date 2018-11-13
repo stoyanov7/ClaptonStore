@@ -1,0 +1,22 @@
+﻿@model ClaptonStore.Models.ViewModels.GameDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container container-fluid">
+    <div class="row">
+        <div class=" pull-left">
+            <img style="float: left" src="@Model.ThumbnailUrl" alt="" />
+        </div>
+        <div class="col-sm-8">
+            <h2>@Model.Title</h2>
+            <h3>@Model.Developer</h3>
+            <p>@Model.Description</p>
+            <p>Price - @Model.Price &euro;</p>
+            <p>Size - @Model.Size GB</p>
+            <p>Release Date - @Model.ReleaseDate.ToShortDateString()</p>
+        </div>
+    </div>
+</div>

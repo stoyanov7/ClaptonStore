@@ -63,5 +63,24 @@
             => await this.context
                 .Games
                 .AnyAsync(u => u.Title == title);
+
+        public async Task<GameDetailsViewModel> GetDetailsAsync(int id)
+        {
+            var gameDb = await this.context
+                .Games
+                .Include(d => d.Developer)
+                .FirstOrDefaultAsync(g => g.Id == id);
+
+            return new GameDetailsViewModel
+            {
+                Title = gameDb.Title,
+                Developer = gameDb.Developer.Title,
+                Description = gameDb.Description,
+                Price = gameDb.Price,
+                Size = gameDb.Size,
+                ThumbnailUrl = gameDb.ThumbnailUrl,
+                ReleaseDate = gameDb.ReleaseDate
+            };
+        }
     }
 }

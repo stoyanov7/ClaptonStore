@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Models;
     using Models.Enum;
+    using Models.ViewModels;
 
     public interface IGameService
     {
@@ -18,5 +19,7 @@
             string developer);
 
         Task<bool> ExistsAsync(string title);
+
+        Task<GameDetailsViewModel> GetDetailsAsync(int id);
     }
 }
