@@ -51,6 +51,12 @@
             .AddEntityFrameworkStores<ClaptonStoreContext>()
             .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
+                microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
+            });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IGameService, GameService>();

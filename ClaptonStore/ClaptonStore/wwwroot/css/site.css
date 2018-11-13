@@ -34,3 +34,7 @@ body {
         display: none;
     }
 }
+
+.title-center {
+    text-align: center;
+}
