@@ -1,6 +1,7 @@
 ﻿namespace ClaptonStore
 {
     using System;
+    using AutoMapper;
     using Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,8 @@
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
