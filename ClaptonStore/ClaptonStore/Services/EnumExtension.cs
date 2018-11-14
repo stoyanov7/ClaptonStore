@@ -4,9 +4,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.Reflection;
 
-    internal static class EnumExtension
+    public static class EnumExtension
     {
-        internal static string GetDisplayName(this Enum enu)
+        public static string GetDisplayName(this Enum enu)
         {
             var attr = GetDisplayAttribute(enu);
 

@@ -38,3 +38,16 @@ body {
 .title-center {
     text-align: center;
 }
+
+.my-dropdown-menu {
+    position: absolute;
+    -ms-transform: translate3d(0px, 44px, 0px);
+    -webkit-transform: translate3d(0px, 44px, 0px);
+    transform: translate3d(0px, 44px, 0px);
+    top: 0px;
+    left: 0px;
+    -webkit-will-change: transform;
+    -moz-will-change: transform;
+    -o-will-change: transform;
+    will-change: transform;
+}

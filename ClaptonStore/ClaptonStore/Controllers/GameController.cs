@@ -1,10 +1,12 @@
 ﻿namespace ClaptonStore.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models.BindingModels;
+    using Models.ViewModels;
     using Services.Contracts;
 
     public class GameController : Controller
@@ -58,7 +60,7 @@
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await this.gameService.GetDetailsAsync(id);
+            var model = await this.gameService.Details<GameDetailsViewModel>(id);
 
             return this.View(model);
         }

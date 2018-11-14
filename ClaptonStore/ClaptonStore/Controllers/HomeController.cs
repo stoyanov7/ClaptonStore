@@ -3,7 +3,9 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Models;
+    using Models.ViewModels;
     using Services.Contracts;
 
     public class HomeController : Controller
@@ -14,7 +16,9 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = await this.gameService.ListAllGamesAsync();
+            var model = await this.gameService
+                .All<AllGamesViewModel>()
+                .ToListAsync();
 
             return this.View(model);
         }

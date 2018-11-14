@@ -1,15 +1,15 @@
 ﻿namespace ClaptonStore.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
+    using AutoMapper.QueryableExtensions;
     using Contracts;
     using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Models.Enum;
-    using Models.ViewModels;
 
     public class GameService : IGameService
     {
@@ -62,41 +62,17 @@
                 .Games
                 .AnyAsync(u => u.Title == title);
 
-        public async Task<GameDetailsViewModel> GetDetailsAsync(int id)
-        {
-            var gameDb = await this.context
-                .Games
-                .Include(d => d.Developer)
-                .FirstOrDefaultAsync(g => g.Id == id);
+        public async Task<TModel> Details<TModel>(int id)
+            => await this.By<TModel>(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
-            return new GameDetailsViewModel
-            {
-                Title = gameDb.Title,
-                Developer = gameDb.Developer.Title,
-                Description = gameDb.Description,
-                Price = gameDb.Price,
-                Size = gameDb.Size,
-                ThumbnailUrl = gameDb.ThumbnailUrl,
-                ReleaseDate = gameDb.ReleaseDate,
-                Genre = gameDb.GameGenreType.GetDisplayName()
-            };
-        }
+        public IQueryable<TModel> All<TModel>() => this.By<TModel>();
 
-        public async Task<IList<AllGamesViewModel>> ListAllGamesAsync()
-        {
-            return await this.context
+        private IQueryable<TModel> By<TModel>(Expression<Func<Game, bool>> predicate = null)
+            => this.context
                 .Games
-                .AsNoTracking()
-                .Select(g => new AllGamesViewModel
-                {
-                    Id = g.Id,
-                    Title = g.Title,
-                    Thumbnail = g.ThumbnailUrl,
-                    Price = g.Price,
-                    Size = g.Size,
-                    Description = g.Description
-                })
-                .ToListAsync();
-        }
+                .AsQueryable()
+                .Where(predicate ?? (i => true))
+                .ProjectTo<TModel>();
     }
 }

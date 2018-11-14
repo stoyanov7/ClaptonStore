@@ -1,11 +1,10 @@
 ﻿namespace ClaptonStore.Services.Contracts
 {
     using System;
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Models;
     using Models.Enum;
-    using Models.ViewModels;
 
     public interface IGameService
     {
@@ -21,8 +20,8 @@
 
         Task<bool> ExistsAsync(string title);
 
-        Task<GameDetailsViewModel> GetDetailsAsync(int id);
+        Task<TModel> Details<TModel>(int id);
 
-        Task<IList<AllGamesViewModel>> ListAllGamesAsync();
+        IQueryable<TModel> All<TModel>();
     }
 }
