@@ -1,0 +1,66 @@
+﻿@using ClaptonStore.Models.ViewModels
+@model IEnumerable<AllGamesViewModel>
+
+@{
+    ViewData["Title"] = "All Games";
+    var index = 1;
+}
+
+<main>
+    @if (!Model.Any())
+    {
+    <div class="card">
+        <h1 class="card-header title-center">@ViewData["Title"]</h1>
+        <div class="row justify-content-center text-center" style="padding-bottom: 20px">
+            <div class="col-12 col-md-10 ">
+                <i class="fa fa-gamepad fa-5x mb-3"></i>
+                <h2>No Games</h2>
+                <h5 class="text-muted">
+                    You do not have any games yet. Add a new game by clicking the <strong>Add Game</strong> button below.
+                </h5>
+                <a asp-controller="Game"
+                   asp-action="Add" 
+                   class="btn btn-lg btn-success" >Add Game</a>
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+        <h1 class="title-center">@ViewData["Title"]</h1>
+        <div class="container">
+            <div class="row">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var game in Model)
+                    {
+                        var warningStyle = index % 2 != 0 ? "table-warning" : string.Empty;
+
+                        <tr class="@warningStyle">
+                            <th scope="row">@index</th>
+                            <td>@game.Title</td>
+                            <td>@game.Size GB</td>
+                            <td>@game.Price &euro;</td>
+                            <td>
+                                <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+
+                        index++;
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</main>
