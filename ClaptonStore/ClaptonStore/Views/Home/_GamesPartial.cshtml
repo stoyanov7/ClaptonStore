@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ClaptonStore.Models.ViewModels.AllGamesViewModel>
+﻿@using ClaptonStore.Models.ViewModels
+@model IEnumerable<AllGamesViewModel>
 
 @{
     var isAdmin = User.IsInRole("Administrators");

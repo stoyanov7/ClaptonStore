@@ -1,5 +1,6 @@
 ﻿@using ClaptonStore.Models.Identity
 @using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -18,6 +19,7 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Panel</a>
                     <div class="dropdown-menu my-dropdown-menu" x-placement="bottom-start">
                         <a asp-controller="Game" asp-action="Add" class="dropdown-item">Add Game</a>
+                        <a asp-controller="Game" asp-action="All" class="dropdown-item">All Games</a>
                     </div>
                 </li>
                 <li>

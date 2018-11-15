@@ -1,9 +1,9 @@
 ﻿namespace ClaptonStore.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Models.BindingModels;
     using Models.ViewModels;
@@ -21,11 +21,11 @@
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrators")]
         public IActionResult Add() => this.View();
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Add(AddGameBindingModel model)
         {
             if (!this.ModelState.IsValid)
@@ -61,6 +61,16 @@
         public async Task<IActionResult> Details(int id)
         {
             var model = await this.gameService.Details<GameDetailsViewModel>(id);
+
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var model = await this.gameService
+                .All<AllGamesViewModel>()
+                .ToListAsync();
 
             return this.View(model);
         }
