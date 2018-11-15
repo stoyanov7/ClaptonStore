@@ -52,11 +52,16 @@
                             asp-items="Html.GetEnumSelectList<GameGenreType>()"
                             class="custom-select">
                         <option>Choose Genre</option>
-                    </select> </div>
-                <hr/>
+                    </select>
+                </div>
+                <hr />
                 <input type="submit" class="btn btn-outline-success btn-lg btn-block"
                        value="Add Game" />
             </fieldset>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

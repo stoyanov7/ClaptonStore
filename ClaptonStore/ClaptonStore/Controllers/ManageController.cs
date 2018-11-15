@@ -343,6 +343,75 @@
             return this.View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Disable2faWarning()
+        {
+            var user = await this.userManager
+                .GetUserAsync(this.User);
+
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+            }
+
+            if (!user.TwoFactorEnabled)
+            {
+                throw new ApplicationException($"Unexpected error occured disabling 2FA for user with ID '{user.Id}'.");
+            }
+
+            return this.View(nameof(this.Disable2fa));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Disable2fa()
+        {
+            var user = await this.userManager
+                .GetUserAsync(this.User);
+
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
+            }
+
+            var disable2faResult = await this.userManager
+                .SetTwoFactorEnabledAsync(user, false);
+
+            if (!disable2faResult.Succeeded)
+            {
+                throw new ApplicationException($"Unexpected error occured disabling 2FA for user with ID '{user.Id}'.");
+            }
+
+            this.logger.LogInformation("User with ID {UserId} has disabled 2fa.", user.Id);
+
+            return this.RedirectToAction(nameof(this.TwoFactorAuthentication));
+        }
+
+        [HttpGet]
+        public IActionResult ResetAuthenticatorWarning()
+        {
+            return this.View(nameof(ResetAuthenticator));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetAuthenticator()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
+            }
+
+            await this.userManager.SetTwoFactorEnabledAsync(user, false);
+            await this.userManager.ResetAuthenticatorKeyAsync(user);
+
+            this.logger.LogInformation("User with id '{UserId}' has reset their authentication app key.", user.Id);
+
+            return this.RedirectToAction(nameof(this.EnableAuthenticator));
+        }
+
         #region Helpers
 
         /// <summary>
