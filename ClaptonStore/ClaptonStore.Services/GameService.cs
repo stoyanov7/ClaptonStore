@@ -48,7 +48,8 @@
                 ThumbnailUrl = thumbnailUrl,
                 ReleaseDate = releaseDate,
                 GameGenreType = gameType,
-                Developer = newDeveloper
+                Developer = newDeveloper,
+                AddedOn = DateTime.UtcNow
             };
 
             this.context.Games.Add(game);
