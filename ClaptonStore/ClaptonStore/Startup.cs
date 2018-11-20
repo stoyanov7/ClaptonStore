@@ -1,6 +1,7 @@
 ﻿namespace ClaptonStore
 {
     using System;
+    using System.IO;
     using AutoMapper;
     using Data;
     using Microsoft.AspNetCore.Builder;
@@ -76,7 +77,8 @@
         {
             if (env.IsDevelopment())
             {
-                DbInitializer.Seed(serviceProvider);
+                var jsonFile = File.ReadAllText(@"bin\Datasets\users.json");
+                DbInitializer.Seed(serviceProvider, jsonFile);
 
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();

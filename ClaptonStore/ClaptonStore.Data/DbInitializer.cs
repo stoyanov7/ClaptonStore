@@ -3,14 +3,16 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using Dto;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Models.Identity;
+    using Newtonsoft.Json;
 
     public static class DbInitializer
     {
-        public static async void Seed(IServiceProvider serviceProvider)
+        public static async void Seed(IServiceProvider serviceProvider, string jsonString)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -35,10 +37,12 @@
                         .ServiceProvider
                         .GetService<UserManager<ApplicationUser>>();
 
-                    await CreateUser(userManager, "admin", "admin@gmail.com", "123");
-                    await CreateUser(userManager, "gosho", "gosho@gmail.com", "123");
-                    await CreateUser(userManager, "pesho", "pesho@gmail.com", "123");
-                    await CreateUser(userManager, "merry", "merry@gmail.com", "123");
+                    var deserializedUser = JsonConvert.DeserializeObject<UserDto[]>(jsonString);
+
+                    foreach (var userDto in deserializedUser)
+                    {
+                        await CreateUser(userManager, userDto.Username, userDto.Email, userDto.Password);
+                    }
 
                     await CreateRole(roleManager, "Administrators");
                     await AddUserToRole(userManager, "admin@gmail.com", "Administrators");
