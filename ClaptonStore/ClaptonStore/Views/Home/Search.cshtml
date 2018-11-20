@@ -1,0 +1,12 @@
+﻿@using ClaptonStore.Models.ViewModels
+@model IEnumerable<SearchViewModel>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>@ViewData["Search"]</h2>
+@foreach (var game in Model)
+{
+    <h3>@game.Title - Game</h3>
+}

@@ -23,5 +23,7 @@
         Task<TModel> Details<TModel>(int id);
 
         IQueryable<TModel> All<TModel>();
+
+        IQueryable<TModel> Find<TModel>(string title);
     }
 }

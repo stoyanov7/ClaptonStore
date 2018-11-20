@@ -37,8 +37,8 @@
             <ul class="navbar-nav mr-auto">
                 <partial name="_LoginPartial.cshtml"/>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" placeholder="Search" type="text">
+            <form asp-controller="Home" asp-action="Search" class="form-inline my-2 my-lg-0" method="get">
+                <input class="form-control mr-sm-2" placeholder="Search" type="text" name="searchTerm" area-label="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>

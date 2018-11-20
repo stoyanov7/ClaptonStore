@@ -68,6 +68,9 @@
 
         public IQueryable<TModel> All<TModel>() => this.By<TModel>();
 
+        public IQueryable<TModel> Find<TModel>(string title) 
+            => this.By<TModel>(g => g.Title.ToLower().Contains(title.ToLower()));
+
         private IQueryable<TModel> By<TModel>(Expression<Func<Game, bool>> predicate = null)
             => this.context
                 .Games

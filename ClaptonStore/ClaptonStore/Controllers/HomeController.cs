@@ -23,6 +23,22 @@
             return this.View(model);
         }
 
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return this.Error();
+            }
+
+            this.ViewData["Search"] = $"Search result: {searchTerm}";
+
+            var game = await this.gameService
+                .Find<SearchViewModel>(searchTerm)
+                .ToListAsync();
+
+            return this.View(game);
+        }
+
         public IActionResult About()
         {
             this.ViewData["Message"] = "Your application description page.";
