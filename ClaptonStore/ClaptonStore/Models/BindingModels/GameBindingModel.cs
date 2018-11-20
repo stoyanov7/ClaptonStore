@@ -1,13 +1,13 @@
 ﻿namespace ClaptonStore.Models.BindingModels
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Enum;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class AddGameBindingModel
+    public class GameBindingModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

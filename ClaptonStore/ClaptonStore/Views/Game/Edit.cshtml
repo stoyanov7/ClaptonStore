@@ -1,13 +1,13 @@
 ﻿@using ClaptonStore.Models.Enum
 @model ClaptonStore.Models.BindingModels.GameBindingModel
 @{
-    ViewData["Title"] = "Add Game";
+    ViewData["Title"] = "Edit Game";
 }
 
 <h1 class="title-center">@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-6" style="margin: 0 auto">
-        <form asp-controller="Game" asp-action="Add" method="post">
+        <form asp-controller="Game" asp-action="Edit" method="post">
             <fieldset>
                 <div class="form-group row">
                     <label asp-for="Title"></label>

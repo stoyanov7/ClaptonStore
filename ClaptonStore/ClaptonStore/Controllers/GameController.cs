@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using Microsoft.Extensions.Logging;
     using Models.BindingModels;
     using Models.ViewModels;
@@ -26,11 +27,11 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrators")]
-        public async Task<IActionResult> Add(AddGameBindingModel model)
+        public async Task<IActionResult> Add(GameBindingModel model)
         {
             if (!this.ModelState.IsValid)
             {
-                this.logger.LogError($"Invalid {nameof(AddGameBindingModel)}!");
+                this.logger.LogError($"Invalid {nameof(GameBindingModel)}!");
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -72,6 +73,55 @@
                 .All<AllGamesViewModel>()
                 .ToListAsync();
 
+            return this.View(model);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return this.NotFound();
+            }
+
+            var game = await this.gameService.ById<GameBindingModel>(id);
+
+            if (game == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(game);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, GameBindingModel model)
+        {
+            if (id != model.Id)
+            {
+                return this.NotFound();
+            }
+
+            if (this.ModelState.IsValid)
+            {
+                try
+                {
+                    await this.gameService.Edit(model.Id, model.Title);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await this.gameService.ExistsAsync(model.Id))
+                    {
+                        return this.NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return this.RedirectToAction("Index", "Home");
+            }
             return this.View(model);
         }
     }

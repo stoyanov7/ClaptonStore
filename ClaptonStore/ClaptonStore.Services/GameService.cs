@@ -58,6 +58,11 @@
             return game;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+            => await this.context
+                .Games
+                .AnyAsync(u => u.Id == id);
+
         public async Task<bool> ExistsAsync(string title)
             => await this.context
                 .Games
@@ -67,16 +72,32 @@
             => await this.By<TModel>(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
+        public async Task<TModel> ById<TModel>(int? id)
+            => await this.By<TModel>(i => i.Id == id)
+                .SingleOrDefaultAsync();
+
+        public async Task Edit(int id, string title)
+        {
+            var gameDb = await this.context
+                .Games
+                .Include(d => d.Developer)
+                .SingleOrDefaultAsync(g => g.Id == id);
+
+            gameDb.Title = title;
+
+            await this.context.SaveChangesAsync();
+        }
+
         public IQueryable<TModel> All<TModel>() => this.By<TModel>();
 
-        public IQueryable<TModel> Find<TModel>(string title) 
+        public IQueryable<TModel> Find<TModel>(string title)
             => this.By<TModel>(g => g.Title.ToLower().Contains(title.ToLower()));
 
         private IQueryable<TModel> By<TModel>(Expression<Func<Game, bool>> predicate = null)
-            => this.context
-                .Games
-                .AsQueryable()
-                .Where(predicate ?? (i => true))
-                .ProjectTo<TModel>();
+             => this.context
+                 .Games
+                 .AsQueryable()
+                 .Where(predicate ?? (i => true))
+                 .ProjectTo<TModel>();
     }
 }
