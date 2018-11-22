@@ -4,10 +4,17 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var isAdmin = User.IsInRole("Administrators");
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item active">
         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Cart</a>
     </li>
     <li class="nav-item">
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
@@ -15,13 +22,16 @@
                 <li>
                     <a class="nav-link" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Panel</a>
-                    <div class="dropdown-menu my-dropdown-menu" x-placement="bottom-start">
-                        <a asp-controller="Game" asp-action="Add" class="dropdown-item">Add Game</a>
-                        <a asp-controller="Game" asp-action="All" class="dropdown-item">All Games</a>
-                    </div>
-                </li>
+                @if (isAdmin)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Panel</a>
+                        <div class="dropdown-menu my-dropdown-menu" x-placement="bottom-start">
+                            <a asp-controller="Game" asp-action="Add" class="dropdown-item">Add Game</a>
+                            <a asp-controller="Game" asp-action="All" class="dropdown-item">All Games</a>
+                        </div>
+                    </li>
+                }
                 <li>
                     <button type="submit" class="btn btn-link" style="color: white">Log out</button>
                 </li>
