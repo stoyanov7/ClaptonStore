@@ -40,12 +40,9 @@
                                    asp-action="Details"
                                    class="btn btn-outline-info">Info</a>
 
-                                <button type="submit"
-                                        asp-page-handler="buy"
-                                        asp-route-id="@game.Id"
-                                        class="btn btn-success">
-                                    Buy
-                                </button>
+                                <form asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-productId="@game.Id" method="post">
+                                    <button type="submit" name="addtocart" class="btn btn-success">Buy</button>
+                                </form>
                             }
                             else
                             {

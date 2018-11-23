@@ -35,6 +35,8 @@
 
         public DbSet<MovieOrder> MovieOrders { get; set; }
 
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new GameOrderConfiguration());

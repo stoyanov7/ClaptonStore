@@ -16,6 +16,7 @@
     using Models.Identity;
     using Services;
     using Services.Contracts;
+    using Web;
 
     public class Startup
     {
@@ -65,11 +66,16 @@
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IGameService, GameService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped(ShoppingCart.GetCart);
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddAutoMapper();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +99,7 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
